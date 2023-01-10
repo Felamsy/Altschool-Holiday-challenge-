@@ -1,22 +1,17 @@
-
 # ALTSCHOOL AFRICA
- 
+
 ## Holiday Project
-
-
 
 ## STEPS
 
- 1. Creating a vpc with private and public subnets
- 2. Creating private instances in the private subnet of the vpc
- 3. Creating a bastion host.
- 4. Installation and Configuration of Nginx Server on Private Instances Using Ansible
- 5. Creation of target groups
- 6. Creating an application load balancer.
+1.  Creating a vpc with private and public subnets
+2.  Creating private instances in the private subnet of the vpc
+3.  Creating a bastion host.
+4.  Installation and Configuration of Nginx Server on Private Instances Using Ansible
+5.  Creation of target groups
+6.  Creating an application load balancer.
 
-
-
-#### Ansible is an open-source automation tool that allows you to configure, manage, and deploy software on various systems. It uses a simple, human-readable language called YAML to describe the desired state of the systems it is managing, and then communicates with those systems over SSH to make the necessary changes to bring them into compliance with the desired state. 
+#### Ansible is an open-source automation tool that allows you to configure, manage, and deploy software on various systems. It uses a simple, human-readable language called YAML to describe the desired state of the systems it is managing, and then communicates with those systems over SSH to make the necessary changes to bring them into compliance with the desired state.
 
 #### One of the key benefits of Ansible is that it doesn't require a agents to be installed on the target systems, it only needs a ssh connection, that means it is agentless. This makes it very easy to get started with, as there is no software to install or configure on the remote systems.
 
@@ -32,6 +27,7 @@
 #### It is used in wide range of companies and industries, from small startup to very large enterprises.
 
 ## What is a VPC?
+
 A Virtual Private Cloud (VPC) is a virtual network in the cloud that is dedicated to your AWS account. A VPC allows you to launch Amazon Elastic Compute Cloud (EC2) instances and RDS instances, as well as other resources, into a virtual network that you've defined.
 
 You can customize the network configuration for your VPC. For example, you can create a public-facing subnet for your web servers, and a private-facing subnet for your database servers. You can also configure security and access control for your VPC. For example, you can create a security group that allows specific inbound traffic, and assign that security group to your web servers.
@@ -40,8 +36,7 @@ VPCs allow you to have a logically isolated section of the AWS cloud where you c
 
 It gives you complete control over your virtual networking environment, including selection of your own IP address range, creation of subnets, and configuration of route tables and network gateways.
 
-
-##  what’s a subnet?
+## what’s a subnet?
 
 In computer networking, a subnet (short for "subnetwork") is a division of an IP network. The IP protocol is designed for use in interconnected systems of packet-switched computer communication networks. In the Internet Protocol (IP) version 4, the address space is divided into four octets, or 32 bits, and each address is written in the form "A.B.C.D" where A, B, C, and D are decimal values between 0 and 255.
 
@@ -52,7 +47,6 @@ For example, in the IP address 192.168.0.1 with a subnet mask of 255.255.255.0, 
 Subnetting allows organizations to break up their larger network into smaller subnetworks, which can help improve network security and organization, and can also help to reduce network congestion.
 
 IPv6 also uses subnetting. But it use a different notation and addressing scheme. In IPv6, the address space is 128 bits, and the address is written in the form "x:x:x:x:x:x:x:x" where x is a hexadecimal value. subnetting in IPv6 is also a little bit different comparing to IPv4.
-
 
 ## How To Create A VPC With Private and Public Subnets
 
@@ -80,15 +74,9 @@ Creating a Virtual Private Cloud (VPC) with private and public subnets in AWS ca
 
 11. Create a network ACL for your private subnet and make sure to add rules so that it is only accessible from your public subnet.
 
-
 You have now created a VPC with a public subnet that can access the internet, and a private subnet that cannot.
 
-
 You can also use AWS CLI or SDKs to perform the same actions with scripts, which can be useful for automating the process of creating a VPC with private and public subnets.
-
-
-
-
 
 ![Creating VPC](https://github.com/Felamsy/Altschool-Holiday-challenge-/blob/main/images/vpc1.jpg)
 ![Creating VPC2](https://github.com/Felamsy/Altschool-Holiday-challenge-/blob/main/images/vpc2.jpg)
@@ -96,7 +84,6 @@ You can also use AWS CLI or SDKs to perform the same actions with scripts, which
 ![Creating VPC4](https://github.com/Felamsy/Altschool-Holiday-challenge-/blob/main/images/creating%20vpc.jpg)
 ![Created VPC](https://github.com/Felamsy/Altschool-Holiday-challenge-/blob/main/images/created%20vpc.jpg)
 ![Subnet Created with VPC](https://github.com/Felamsy/Altschool-Holiday-challenge-/blob/main/images/subnet%20created%20with%20vpc.jpg)
-
 
 ## Creating our EC2 instance (server)
 
@@ -125,7 +112,6 @@ Here are the additional steps you can follow to create an EC2 instance in a priv
 
 10. When prompted, select an existing key pair or create a new one.
 
-
 After the instance is launched, you will not be able to connect to it via the public IP address, since it is in a private subnet and not directly accessible from the internet.
 Instead you will have to connect to the instance via VPN or use the bastion host in the public subnet or use the Systems Manager Session Manager to access the instance.
 
@@ -138,7 +124,8 @@ If you're running any services that need to be accessed from outside of the VPC,
 ![Creating KeyPair](https://github.com/Felamsy/Altschool-Holiday-challenge-/blob/c8667c97e40e39b06b35f506e7e7e4876908df21/images/creating%20keypair.jpg)
 ![EC2 Network Settings](https://github.com/Felamsy/Altschool-Holiday-challenge-/blob/main/images/ec2%20network%20settings.jpg)
 
-#### NOTE: 
+#### NOTE:
+
 there will have to be two servers that the load balancer will have to connect to. you need to create the second one.
 
 ## Creating a Bastion Host
@@ -195,7 +182,7 @@ sudo apt update; sudo apt dist-upgrade -y
 
 second, we would install ansible on the bastion host using the command below.
 
-sudo apt install ansible -y 
+sudo apt install ansible -y
 
 thirdly, we will need to create three files on our servers. the first is the ansible config file. and it should look like this.
 
@@ -209,11 +196,9 @@ The second file we will need to create is our inventory file where we store the 
 
 nano inventory(IP address stored inside the file)
 
-
-
 note that the name of the file must be inventory.
 
-and now for the final file. we will need to create is a YAML (Yet Another Markup Language) file where we will be storing our ansible playbook 
+and now for the final file. we will need to create is a YAML (Yet Another Markup Language) file where we will be storing our ansible playbook
 
 you can name this file whatever you like. I just like naming mine site.yml but one thing you cannot change is the .yml ending of the file.
 
@@ -227,30 +212,28 @@ now that we have created the file. let’s write our playbook to configure Nginx
 
   - name: update & upgrade server
     apt:
-      update_cache: yes
-      upgrade: yes
+    update_cache: yes
+    upgrade: yes
 
   - name: install nginx
     apt:
-      name: nginx
-      state: latest
+    name: nginx
+    state: latest
 
-      
 The task above is to update and upgrade the private servers before installing Nginx.
 
 but that’s not enough we also need a task to change the Nginx default website and write our own so we can distinguish between the two private servers when the load balancer balances the load.
 
 - name: add hostname to server
-    tags: print
-    shell: echo "<h1>This is my server $(hostname -f)</h1>" > /var/www/html/index.nginx-debian.html
+  tags: print
+  shell: echo "< h1>This is my server $(hostname -f)</ h1>" > /var/www/html/index.nginx-debian.html
 
 - name: restart nginx
-    tags: restart
-    service:
-      name: nginx
-      state: restarted
-      enabled: yes
-
+  tags: restart
+  service:
+  name: nginx
+  state: restarted
+  enabled: yes
 
 #### This last service above helps us restart the Nginx server.
 
@@ -263,7 +246,6 @@ to run our playbook we will need just this command.
 ansible-playbook -i inventory filename.yml
 
 ## Creating your Target Groups
-
 
 Going back to AWS. we will need to create a target group to connect our load balancer and our IP addresses together.
 
@@ -331,7 +313,7 @@ we move down to target groups and select the target group we created previously
 
 Leave everything as a default. and create the load balancer
 
-##  Configure Instance Security Group to Face Load Balancer
+## Configure Instance Security Group to Face Load Balancer
 
 now going back to our EC2 dashboard.
 
@@ -355,7 +337,7 @@ now go back to your target groups. as you can see the two servers are both healt
 
 you can restart the Nginx server in the two private servers with our ansible task that we wrote before.
 
-we can do this in our bastion host using 
+we can do this in our bastion host using
 
 ansible-playbook -i inventory FileName.yml --tags restart
 
